@@ -1,7 +1,7 @@
-name: SpigotPluginTemplate
+name: Attack
 version: ${project.version}
-main: com.seailz.spigotplugintemplate.SpigotPluginTemplate
+main: com.seailz.attack.AttackPlugin
 api-version: 1.18
 authors: [ Seailz ]
-description: Plugin Tempalte (Change this!)
-website: www.seailzcom
+description: Attack - A custom island minigame where blocks slowly disappear.
+website: www.seailz.com

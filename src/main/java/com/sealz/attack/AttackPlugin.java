@@ -1,16 +1,22 @@
-package club.icegames.spigotplugintemplate;
+package com.sealz.attack;
 
-import club.icegames.spigotplugintemplate.core.Locale;
-import club.icegames.spigotplugintemplate.core.Logger;
+import com.sealz.attack.core.Locale;
+import com.sealz.attack.core.Logger;
 import games.negative.framework.BasePlugin;
 import lombok.Getter;
 import lombok.Setter;
+import org.bukkit.entity.Player;
 
-public final class PluginTemplate extends BasePlugin {
+import java.util.ArrayList;
+
+public final class AttackPlugin extends BasePlugin {
 
     @Getter
     @Setter
-    public static PluginTemplate instance;
+    public static AttackPlugin instance;
+
+    @Getter
+    private final ArrayList<Player> queue = new ArrayList<>();
 
     @Override
     public void onEnable() {
