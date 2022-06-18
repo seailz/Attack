@@ -4,9 +4,14 @@ import com.sealz.attack.core.Locale;
 import com.sealz.attack.core.Logger;
 import com.sealz.attack.core.storage.StorageType;
 import games.negative.framework.BasePlugin;
+import games.negative.framework.database.Database;
 import games.negative.framework.database.DatabaseInfo;
+import games.negative.framework.util.version.VersionChecker;
 import lombok.Getter;
 import lombok.Setter;
+import org.bukkit.Bukkit;
+import org.bukkit.WorldCreator;
+import org.bukkit.WorldType;
 import org.bukkit.entity.Player;
 
 import java.io.File;
@@ -31,6 +36,10 @@ public final class AttackPlugin extends BasePlugin {
     private DatabaseInfo databaseInfo;
 
     @Getter
+    @Setter
+    private Database database;
+
+    @Getter
     private final ArrayList<Player> queue = new ArrayList<>();
 
     @Override
@@ -48,12 +57,13 @@ public final class AttackPlugin extends BasePlugin {
         Locale.init(this);
         saveDefaultConfig();
 
-        // Sets the storage type
+        // STORAGE INITIALIZATION
         switch (getConfig().getString("storage-type")) {
             case "sqlite":
                 setStorageType(StorageType.SQLLITE);
                 Logger.log(Logger.LogLevel.INFO,"Using SQLite storage type.");
                 setSqlLiteFile(new File(getDataFolder(), "sqlite.db"));
+                setDatabase(new Database(getSqlLiteFile()));
                 break;
             case "mysql":
                 setStorageType(StorageType.MYSQL);
@@ -66,6 +76,8 @@ public final class AttackPlugin extends BasePlugin {
                         getConfig().getString("mysql.username"),
                         getConfig().getString("mysql.password")
                 ));
+
+                setDatabase(new Database(getDatabaseInfo()));
                 break;
             default:
                 Logger.log(Logger.LogLevel.ERROR,"Invalid storage type! Please check your config.yml file.");
@@ -73,6 +85,34 @@ public final class AttackPlugin extends BasePlugin {
 
                 setStorageType(StorageType.SQLLITE);
                 setSqlLiteFile(new File(getDataFolder(), "database.db"));
+                setDatabase(new Database(getSqlLiteFile()));
+        }
+
+        if (Bukkit.getWorld("attack") == null) {
+            Logger.log(Logger.LogLevel.INFO, "Attack world does not exist! Creating...");
+
+            VersionChecker versionChecker = VersionChecker.getInstance();
+            if (versionChecker.isModern()) {
+                Logger.log(Logger.LogLevel.ERROR, "Your server is running a modern version of Minecraft. Attack requires a legacy version (before 1.12.2) of Minecraft to work.");
+                getPluginLoader().disablePlugin(this);
+                return;
+                /*
+                Logger.log(Logger.LogLevel.INFO, "Server determined to be MODERN. Using names");
+                WorldCreator wc = new WorldCreator("ATTACK");
+                wc.type(WorldType.FLAT);
+                wc.generatorSettings("minecraft:air;minecraft:plains;");
+                wc.createWorld(); */
+            }
+            else {
+                Logger.log(Logger.LogLevel.INFO, "Server determined to be LEGACY. Using IDs");
+
+                WorldCreator wc = new WorldCreator("ATTACK");
+                wc.type(WorldType.FLAT);
+                wc.generatorSettings("2;0;1;");
+                wc.createWorld();
+            }
+
+            Logger.log(Logger.LogLevel.SUCCESS, "Attack world created!");
         }
 
         long finish = System.currentTimeMillis() - start;
