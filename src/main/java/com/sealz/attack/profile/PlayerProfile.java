@@ -1,12 +1,16 @@
 package com.sealz.attack.profile;
 
+import com.sealz.attack.AttackPlugin;
 import games.negative.framework.database.Database;
 import games.negative.framework.database.annotation.Column;
 import games.negative.framework.database.annotation.constructor.DatabaseConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
+import java.sql.SQLException;
 import java.util.UUID;
 
 /**
@@ -34,11 +38,33 @@ public class PlayerProfile {
         setGames(games);
     }
 
+    /**
+     * Saves the player's profile to the database.
+     */
+    public void save() {
+        Database db = AttackPlugin.getInstance().getDatabase();
+        try {
+            db.insert("attack_profiles", this);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+    /**
+     * Reads the player's profile from the database.
+     * @param uuid The player's UUID.
+     * @return The player's profile.
+     */
+    @Nullable
     public static PlayerProfile getProfile(UUID uuid) {
-
-
-
-        return null;
+        Database database = AttackPlugin.getInstance().getDatabase();
+        PlayerProfile profile = null;
+        try {
+            profile = (PlayerProfile) database.get("attack_profiles", "uuid", String.valueOf(uuid), PlayerProfile.class);
+        } catch (SQLException | InvocationTargetException | InstantiationException | IllegalAccessException ignored) {}
+        return profile;
     }
 
 
