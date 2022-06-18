@@ -83,14 +83,14 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.8.8-R0.1-SNAPSHOT</version>
+            <version>1.18.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <!-- SHOULD BE CHANGED TO THE OFFICIAL VERSION ONCE PULL REQ IS MERGED -->
         <dependency>
             <groupId>com.github.seailz</groupId>
             <artifactId>Framework</artifactId>
-            <version>256c1af824f7cd6ebe9043f05e159ff850ef3cec</version>
+            <version>a9283b599e4e6b26024c52bc2f9a07911cff6845</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
