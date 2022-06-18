@@ -1,7 +1,9 @@
 package com.sealz.attack.game;
 
+import com.sealz.attack.core.utils.TeleportUtils;
 import lombok.Getter;
 import lombok.Setter;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -17,8 +19,12 @@ public class AttackGame {
 
     private Location loc;
 
-
     public AttackGame(ArrayList<Player> players) {
         setPlayers(players);
     }
+
+    public void start() {
+        setLoc(TeleportUtils.generateLocation(Bukkit.getWorld("attack")));
+    }
+
 }
