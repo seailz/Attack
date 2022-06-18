@@ -86,10 +86,11 @@
             <version>1.8.8-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
+        <!-- SHOULD BE CHANGED TO THE OFFICIAL VERSION ONCE PULL REQ IS MERGED -->
         <dependency>
-            <groupId>com.github.Negative-Games</groupId>
+            <groupId>com.github.seailz</groupId>
             <artifactId>Framework</artifactId>
-            <version>2.1.0</version>
+            <version>256c1af824f7cd6ebe9043f05e159ff850ef3cec</version>
             <scope>compile</scope>
         </dependency>
         <dependency>

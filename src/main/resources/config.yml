@@ -1,0 +1,40 @@
+###############################################################
+#             _______ _______       _____ _  __               #
+#             /\|__   __|__   __|/\   / ____| |/ /            #
+#            /  \  | |     | |  /  \ | |    | ' /             #
+#           / /\ \ | |     | | / /\ \| |    |  <              #
+#          / ____ \| |     | |/ ____ \ |____| . \             #
+#         /_/    \_\_|     |_/_/    \_\_____|_|\_\            #
+###############################################################
+
+# Welcome to the configuration file for Attack, a custom minigame.
+# This file is where you can change the settings of the plugin.
+
+# STORAGE TYPE
+# This currently supports "local" and "mysql"
+#
+# If "local" is selected, the plugin will use SQLLite to store the data.
+# If "mysql" is selected, the plugin will use a MySQL to store the data.
+storage-type: local
+
+# LOCAL STORAGE
+# Only to be used if storage-type is "local"
+local-storage-path: database.db
+
+# MYSQL STORAGE
+# Only to be used if storage-type is "mysql"
+mysql:
+    host: localhost
+    port: 3306
+    user: root
+    password: root
+    database: database
+
+
+# PROFILE CUSTOMIZATION
+profile:
+  storeKills: true
+  storeDeaths: true
+  storeLosses: true
+  storeWins: true
+  storeGameCount: true
