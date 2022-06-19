@@ -18,7 +18,10 @@ import java.util.List;
     @Getter
     public enum Locale {
 
-        ERROR_INVALID_PLAYER("error.invalidplayer", Collections.singletonList("&c&lERROR&f That player is invalid!"));
+        ERROR_INVALID_PLAYER("error.invalidplayer", Collections.singletonList("&c&lERROR&f That player is invalid!")),
+        GAME_LOADING("GAME_LOADING", Collections.singletonList(
+                "&b&lINFO &fGame is loading...")
+        );
 
         private final String id;
         private final List<String> defaultMessage;

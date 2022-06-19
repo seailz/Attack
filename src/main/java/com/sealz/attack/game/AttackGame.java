@@ -1,5 +1,6 @@
 package com.sealz.attack.game;
 
+import com.sealz.attack.core.Locale;
 import com.sealz.attack.core.utils.TeleportUtils;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,6 +26,9 @@ public class AttackGame {
 
     public void start() {
         setLoc(TeleportUtils.generateLocation(Bukkit.getWorld("attack")));
+        players.forEach(Locale.GAME_LOADING::send);
+
+
     }
 
 }
