@@ -2,6 +2,7 @@ package com.sealz.attack;
 
 import com.sealz.attack.core.Locale;
 import com.sealz.attack.core.Logger;
+import com.sealz.attack.core.manager.PluginManager;
 import com.sealz.attack.core.storage.StorageType;
 import games.negative.framework.BasePlugin;
 import games.negative.framework.database.Database;
@@ -50,6 +51,8 @@ public final class AttackPlugin extends BasePlugin {
 
         setInstance(this);
 
+        new PluginManager(this).init();
+
         // Set details and register things
         register(RegisterType.COMMAND);
         register(RegisterType.LISTENER);
@@ -88,29 +91,14 @@ public final class AttackPlugin extends BasePlugin {
                 setDatabase(new Database(getSqlLiteFile()));
         }
 
+
+
         if (Bukkit.getWorld("attack") == null) {
             Logger.log(Logger.LogLevel.INFO, "Attack world does not exist! Creating...");
-
-            VersionChecker versionChecker = VersionChecker.getInstance();
-            if (versionChecker.isModern()) {
-                Logger.log(Logger.LogLevel.ERROR, "Your server is running a modern version of Minecraft. Attack requires a legacy version (before 1.12.2) of Minecraft to work.");
-                getPluginLoader().disablePlugin(this);
-                return;
-                /*
-                Logger.log(Logger.LogLevel.INFO, "Server determined to be MODERN. Using names");
-                WorldCreator wc = new WorldCreator("ATTACK");
-                wc.type(WorldType.FLAT);
-                wc.generatorSettings("minecraft:air;minecraft:plains;");
-                wc.createWorld(); */
-            }
-            else {
-                Logger.log(Logger.LogLevel.INFO, "Server determined to be LEGACY. Using IDs");
-
                 WorldCreator wc = new WorldCreator("ATTACK");
                 wc.type(WorldType.FLAT);
                 wc.generatorSettings("2;0;1;");
                 wc.createWorld();
-            }
 
             Logger.log(Logger.LogLevel.SUCCESS, "Attack world created!");
         }
