@@ -90,7 +90,7 @@
         <dependency>
             <groupId>com.github.seailz</groupId>
             <artifactId>Framework</artifactId>
-            <version>a9283b599e4e6b26024c52bc2f9a07911cff6845</version>
+            <version>2.2.0-BETA</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
